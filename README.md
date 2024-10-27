@@ -22,6 +22,7 @@ pip install -r requirements.txt
 
 ## Run steamlit app in local
 ```
+change dir to dashboard
 streamlit run report.py
 ```
 
