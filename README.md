@@ -9,11 +9,14 @@ pip install -r requirements.txt
 ```
 
 ## Setup Environment - Shell/Terminal
-```
+
 1. Clone repository berikut ke komputer lokal dengan menggunakan perintah :
+```
 git clone https://github.com/Kristovwaruwu/e-commerce-data-analyst.git
+```
 
 2. Install seluruh requirements
+```
 pip install -r requirements.txt
 ```
 
@@ -21,7 +24,7 @@ pip install -r requirements.txt
 ```
 streamlit run report.py
 ```
-#Analisis
+## Analisis
 Analisis yang dilakukan menggunakan **E-Commerce Dataset**
 Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
 
