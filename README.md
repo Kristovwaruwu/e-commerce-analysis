@@ -20,10 +20,15 @@ git clone https://github.com/Kristovwaruwu/e-commerce-data-analyst.git
 pip install -r requirements.txt
 ```
 
-## Run steamlit app
+## Run steamlit app in local
 ```
 streamlit run report.py
 ```
+
+## Run Streamlit app in streamlit.io
+Akses app disini: [E-Commerce Data Analysis Dashboard](https://e-commerce-analysis-dicbyk.streamlit.app/)
+
+
 ## Analisis
 Analisis yang dilakukan menggunakan **E-Commerce Dataset**
 Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
