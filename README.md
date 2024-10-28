@@ -22,8 +22,7 @@ pip install -r requirements.txt
 
 ## Run steamlit app in local
 ```
-change dir to dashboard
-streamlit run report.py
+streamlit run dashboard/report.py
 ```
 
 ## Run Streamlit app in streamlit.io
@@ -32,8 +31,9 @@ Akses app disini: [E-Commerce Data Analysis Dashboard](https://e-commerce-analys
 
 ## Analisis
 Analisis yang dilakukan menggunakan **E-Commerce Dataset**
-Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
 
+```Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
+```
 
 Ekspolasi Analisis Data terdiri dari beberapa tahap:
 1. Data Wrangling

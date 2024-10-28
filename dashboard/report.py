@@ -35,6 +35,23 @@ def create_bystate_df(df):
     
     return bystate_df
 
+# create_bycity_df() digunakan untuk menyiapkan bycity_df
+def create_bycity_df(df):
+    bycity_df = df.groupby(by="customer_city").customer_id.nunique().reset_index()
+    bycity_df.rename(columns={
+        "customer_id": "customer_count"
+    }, inplace=True)
+    
+    return bycity_df
+
+
+#Create Payment_method 
+def create_by_paymentmethod_df(df):
+    by_paymentmethod_df = df['payment_type'].value_counts().reset_index()
+    by_paymentmethod_df.columns = ['payment_type', 'customer_count']
+
+    return by_paymentmethod_df
+
 # create_rfm_df() bertanggung jawab untuk menghasilkan rfm_df
 def create_rfm_df(df):
     rfm_df = df.groupby(by="customer_id", as_index=False).agg({
@@ -51,7 +68,10 @@ def create_rfm_df(df):
     
     return rfm_df
 
+#Load file
 all_df = pd.read_csv("dashboard/all_data.csv")
+
+
 
 datetime_columns = ["order_purchase_timestamp", "order_delivered_customer_date"]
 all_df.sort_values(by="order_purchase_timestamp", inplace=True)
@@ -76,11 +96,13 @@ with st.sidebar:
 main_df = all_df[(all_df["order_purchase_timestamp"] >= str(start_date)) & 
                 (all_df["order_purchase_timestamp"] <= str(end_date))]
 
+#Call Function Helper
 daily_orders_df = create_daily_orders_df(main_df)
 sum_order_items_df = create_sum_order_items_df(main_df)
 bystate_df = create_bystate_df(main_df)
+bycity_df = create_bycity_df(main_df)
+by_paymentmethod_df = create_by_paymentmethod_df(main_df)
 rfm_df = create_rfm_df(main_df)
-
 
 
 st.header('E-Commerce Dashboard :sparkles:')
@@ -114,16 +136,17 @@ st.subheader("Best & Worst Performing Product")
  
 fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(35, 15))
  
-colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+colors_best = ["#00FF57", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+colors_worst = ["#F90611", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
  
-sns.barplot(x="product_photos_qty", y="product_category_name_english", data=sum_order_items_df.head(5), palette=colors, ax=ax[0])
+sns.barplot(x="product_photos_qty", y="product_category_name_english", data=sum_order_items_df.head(5), palette=colors_best, ax=ax[0])
 ax[0].set_ylabel(None)
 ax[0].set_xlabel("Number of Sales", fontsize=30)
 ax[0].set_title("Best Performing Product", loc="center", fontsize=50)
 ax[0].tick_params(axis='y', labelsize=35)
 ax[0].tick_params(axis='x', labelsize=30)
  
-sns.barplot(x="product_photos_qty", y="product_category_name_english", data=sum_order_items_df.sort_values(by="product_photos_qty", ascending=True).head(5), palette=colors, ax=ax[1])
+sns.barplot(x="product_photos_qty", y="product_category_name_english", data=sum_order_items_df.sort_values(by="product_photos_qty", ascending=True).head(5), palette=colors_worst, ax=ax[1])
 ax[1].set_ylabel(None)
 ax[1].set_xlabel("Number of Sales", fontsize=30)
 ax[1].invert_xaxis()
@@ -137,13 +160,13 @@ st.pyplot(fig)
 
 st.subheader("Customer Demographics")
  
-
+# Customer State
 fig, ax = plt.subplots(figsize=(20, 10))
-colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(
     x="customer_count", 
     y="customer_state",
-    data=bystate_df.sort_values(by="customer_count", ascending=False),
+    data=bystate_df.sort_values(by="customer_count", ascending=False).head(10),
     palette=colors,
     ax=ax
 )
@@ -154,6 +177,44 @@ ax.tick_params(axis='y', labelsize=20)
 ax.tick_params(axis='x', labelsize=15)
 st.pyplot(fig)
 
+
+# Customer City
+fig, ax = plt.subplots(figsize=(20, 10))
+colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+sns.barplot(
+    x="customer_count", 
+    y="customer_city",
+    data=bycity_df.sort_values(by="customer_count", ascending=False).head(10),
+    palette=colors,
+    ax=ax
+)
+ax.set_title("Number of Customer by City", loc="center", fontsize=30)
+ax.set_ylabel(None)
+ax.set_xlabel(None)
+ax.tick_params(axis='y', labelsize=20)
+ax.tick_params(axis='x', labelsize=15)
+st.pyplot(fig)
+
+
+# Payment
+st.subheader("Payment Types")
+fig, ax = plt.subplots(figsize=(16,8))
+colors= ["#16423C", "#D3D3D3", "#D3D3D3", "#D3D3D3","#D3D3D3"]
+sns.barplot(
+    x='payment_type', 
+    y='customer_count', 
+    data=by_paymentmethod_df.sort_values(by="customer_count", ascending=False), 
+    palette=colors, 
+    ax=ax)
+ax.set_title('Most Used Payment Types by Customers', loc="center", fontsize=15)
+ax.set_xlabel('Payment Method', fontsize=15)
+ax.set_ylabel('Payment Type', fontsize=15)
+ax.tick_params(axis='x', labelsize=12)
+ax.tick_params(axis='y', labelsize=15)
+plt.subplots_adjust(bottom=0.15, top=0.9, left=0.1, right=0.9)
+st.pyplot(fig)
+
+#RFM
 st.subheader("Best Customer Based on RFM Parameters")
  
 col1, col2, col3 = st.columns(3)
