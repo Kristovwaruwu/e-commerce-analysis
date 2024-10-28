@@ -32,9 +32,6 @@ Akses app disini: [E-Commerce Data Analysis Dashboard](https://e-commerce-analys
 ## Analisis
 Analisis yang dilakukan menggunakan **E-Commerce Dataset**
 
-```Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
-```
-
 Ekspolasi Analisis Data terdiri dari beberapa tahap:
 1. Data Wrangling
 2. Data gathering
@@ -44,3 +41,6 @@ Ekspolasi Analisis Data terdiri dari beberapa tahap:
 6. Data Visualization & Explanatory Analysis
 7. RFM Analysis
 8. Conclusion
+
+## Hasil
+Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
