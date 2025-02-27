@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 1. Clone repository berikut ke komputer lokal dengan menggunakan perintah :
 ```
-git clone https://github.com/Kristovwaruwu/e-commerce-data-analyst.git
+git clone https://github.com/Kristovwaruwu/e-commerce-analysis.git
 ```
 
 2. Install seluruh requirements
@@ -43,4 +43,4 @@ Ekspolasi Analisis Data terdiri dari beberapa tahap:
 8. Conclusion
 
 ## Hasil
-Hasil Analisis tersebut disimpan ke dalam file: Proyek_Analisis_Data.ipynb
+Hasil Analisis tersebut disimpan ke dalam file: notebook.ipynb
