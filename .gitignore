@@ -1,0 +1,4 @@
+# Mengabaikan file tertentu
+Pipfile
+Pipfile.lock
+.ipynb_checkpoints
